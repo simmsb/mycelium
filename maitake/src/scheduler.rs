@@ -176,7 +176,7 @@
 //! [I/O reactor]: https://en.wikipedia.org/wiki/Reactor_pattern
 #![warn(missing_docs, missing_debug_implementations)]
 use crate::{
-    loom::sync::atomic::{AtomicPtr, AtomicUsize, Ordering::*},
+    loom::atomic::{AtomicPtr, AtomicUsize, Ordering::*},
     task::{self, Header, JoinHandle, Storage, TaskRef},
 };
 use core::{future::Future, marker::PhantomData, ptr};

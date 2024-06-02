@@ -2,7 +2,7 @@ use super::{Ticks, Timer};
 use crate::{
     loom::{
         cell::UnsafeCell,
-        sync::atomic::{AtomicBool, Ordering::*},
+        atomic::{AtomicBool, Ordering::*},
     },
     sync::wait_cell::WaitCell,
 };

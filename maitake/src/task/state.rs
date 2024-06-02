@@ -1,6 +1,6 @@
 use super::PollResult;
 use crate::{
-    loom::sync::atomic::{
+    loom::atomic::{
         self, AtomicUsize,
         Ordering::{self, *},
     },
@@ -331,7 +331,7 @@ impl StateCell {
         self.0.fetch_or(State::WOKEN.raw_mask(), AcqRel);
     }
 
-    #[inline]
+    #[inline(always)]
     pub(super) fn clone_ref(&self) {
         // Using a relaxed ordering is alright here, as knowledge of the
         // original reference prevents other threads from erroneously deleting
@@ -361,7 +361,7 @@ impl StateCell {
         }
     }
 
-    #[inline]
+    #[inline(always)]
     pub(super) fn drop_ref(&self) -> bool {
         test_debug!("StateCell::drop_ref");
         // We do not need to synchronize with other cores unless we are going to
@@ -406,7 +406,7 @@ impl StateCell {
         })
     }
 
-    #[inline]
+    #[inline(always)]
     pub(super) fn create_join_handle(&self) {
         test_debug!("StateCell::create_join_handle");
         self.transition(|state| {
@@ -419,7 +419,7 @@ impl StateCell {
         })
     }
 
-    #[inline]
+    #[inline(always)]
     pub(super) fn drop_join_handle(&self) {
         test_debug!("StateCell::drop_join_handle");
         const MASK: usize = !State::HAS_JOIN_HANDLE.raw_mask();

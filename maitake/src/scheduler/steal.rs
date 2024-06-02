@@ -1,5 +1,5 @@
 use super::*;
-use crate::loom::sync::atomic::AtomicUsize;
+use crate::loom::atomic::AtomicUsize;
 use cordyceps::mpsc_queue::{self, MpscQueue};
 use core::marker::PhantomData;
 use mycelium_util::fmt;

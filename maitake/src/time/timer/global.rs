@@ -1,8 +1,8 @@
 use super::{Timer, TimerError};
 use core::{
     ptr,
-    sync::atomic::{AtomicPtr, Ordering},
 };
+use crate::loom::atomic::{AtomicPtr, Ordering};
 
 static GLOBAL_TIMER: AtomicPtr<Timer> = AtomicPtr::new(ptr::null_mut());
 

@@ -65,10 +65,10 @@ mod inner {
 mod inner {
     #![allow(dead_code, unused_imports)]
     pub(crate) mod sync {
-        pub use core::sync::*;
+        pub use portable_atomic as atomic;
 
-        #[cfg(all(feature = "alloc", not(test)))]
-        pub use alloc::sync::*;
+        // #[cfg(all(feature = "alloc", not(test)))]
+        // pub use alloc::sync::*;
 
         #[cfg(test)]
         pub use std::sync::*;

@@ -107,7 +107,8 @@ mod inner {
     pub(crate) mod sync {
         #[cfg(feature = "alloc")]
         pub use alloc::sync::*;
-        pub use core::sync::*;
+
+        pub use portable_atomic as atomic;
 
         pub use crate::spin;
     }

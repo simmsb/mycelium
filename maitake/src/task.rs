@@ -570,7 +570,7 @@ where
         self.header().id
     }
 
-    pub(crate) fn bind(&mut self, scheduler: S) {
+    pub fn bind(&mut self, scheduler: S) {
         self.schedulable.scheduler.with_mut(|current| unsafe {
             *current = Some(scheduler);
         });

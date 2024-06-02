@@ -11,7 +11,7 @@ homepage = "https://mycelium.elizas.website"
 readme = "README.md"
 keywords = ["intrusive", "no_std", "list", "queue", "lock-free"]
 categories = ["data-structures", "no-std"]
-rust-version = "1.61.0"
+rust-version = "1.77.0"
 
 [features]
 default = []
@@ -22,6 +22,9 @@ std = ["alloc"]
 # When this feature is NOT enabled, the size will be determined based on target platform.
 # See the documentation of `CachePadded` for more details.
 no-cache-pad = []
+
+[dependencies]
+portable-atomic = "1.2"
 
 [dev-dependencies]
 proptest = "1"

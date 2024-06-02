@@ -10,7 +10,29 @@ extern crate alloc;
 mod macros;
 
 pub mod error;
+#[cfg(feature = "tracing")]
 pub mod fmt;
+#[cfg(not(feature = "tracing"))]
+pub mod fmt {
+    pub use core::fmt::*;
+
+    /// noop
+    pub fn display<T>(_x: T) -> () {}
+    /// noop
+    pub fn ptr<T>(_x: T) -> () {}
+    /// noop
+    pub fn bin<T>(_x: T) -> () {}
+
+    pub struct NoopOpt;
+
+    impl NoopOpt {
+        pub fn or_else<U>(self, _x: U) -> () {}
+    }
+
+    /// noop
+    pub fn opt<T>(_x: T) -> NoopOpt { NoopOpt }
+}
+
 pub mod io;
 pub mod math;
 pub mod mem;

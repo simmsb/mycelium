@@ -8,9 +8,10 @@
 //! [future]: core::future::Future
 use super::clock::{self, Clock, Instant, Ticks};
 use crate::{
-    loom::sync::{
-        atomic::{AtomicUsize, Ordering::*},
+    loom::{sync::{
         spin::{Mutex, MutexGuard},
+    },
+        atomic::{AtomicUsize, Ordering::*},
     },
     util::expect_display,
 };
@@ -387,7 +388,7 @@ impl Timer {
     /// *outside* of an interrupt handler (i.e., as as part of an occasional
     /// runtime bookkeeping process). This ensures that any pending ticks are
     /// observed by the timer in a relatively timely manner.
-    #[inline]
+    #[inline(always)]
     pub fn try_turn(&self) -> Option<Turn> {
         // `try_turn` may be called in an ISR, so it can never actually spin.
         // instead, if the timer wheel is busy (e.g. the timer ISR was called on
@@ -424,7 +425,7 @@ impl Timer {
     /// calls to [`Timer::try_turn`] in an interrupt handler, it may be
     /// desirable to occasionally call `turn` outside an interrupt handler, to
     /// ensure that pending ticks are drained frequently.
-    #[inline]
+    #[inline(always)]
     pub fn turn(&self) -> Turn {
         self.advance_locked(&mut self.core.lock())
     }
